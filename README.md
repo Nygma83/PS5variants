@@ -1,2 +1,565 @@
 # PS5variants
-Table
+<!DOCTYPE html>
+<html lang="sr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PS5 Revizije - Kompletna Tabela za Download</title>
+    <style>
+        :root {
+            --ps-blue: #0066cc;
+            --ps-blue-light: #0070e0;
+            --gray-light: #f5f5f5;
+            --gray-dark: #333333;
+            --border: #ddd;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', system-ui, sans-serif;
+        }
+        
+        body {
+            background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+            color: var(--gray-dark);
+            padding: 20px;
+            min-height: 100vh;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 15px;
+            padding: 30px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+        }
+        
+        .header {
+            text-align: center;
+            margin-bottom: 30px;
+            padding-bottom: 20px;
+            border-bottom: 2px solid var(--border);
+        }
+        
+        h1 {
+            color: var(--ps-blue);
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+            font-weight: 700;
+        }
+        
+        .ps5-badge {
+            display: inline-block;
+            background: linear-gradient(135deg, var(--ps-blue) 0%, var(--ps-blue-light) 100%);
+            color: white;
+            padding: 8px 20px;
+            border-radius: 20px;
+            font-weight: 600;
+            margin-bottom: 15px;
+            box-shadow: 0 4px 12px rgba(0, 102, 204, 0.2);
+        }
+        
+        /* CONTROLS */
+        .controls {
+            background: #f8f9fa;
+            padding: 25px;
+            border-radius: 12px;
+            margin-bottom: 30px;
+            border: 1px solid var(--border);
+        }
+        
+        .size-controls {
+            display: flex;
+            gap: 15px;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+            align-items: center;
+        }
+        
+        .size-label {
+            font-weight: 600;
+            color: #333;
+            min-width: 80px;
+        }
+        
+        .size-btn {
+            padding: 10px 20px;
+            background: white;
+            border: 2px solid var(--border);
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.2s;
+            color: #555;
+        }
+        
+        .size-btn:hover {
+            border-color: var(--ps-blue);
+            color: var(--ps-blue);
+        }
+        
+        .size-btn.active {
+            background: var(--ps-blue);
+            border-color: var(--ps-blue);
+            color: white;
+        }
+        
+        .button-group {
+            display: flex;
+            gap: 15px;
+            flex-wrap: wrap;
+        }
+        
+        .action-btn {
+            padding: 14px 28px;
+            border: none;
+            border-radius: 8px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            transition: all 0.3s;
+            min-width: 200px;
+        }
+        
+        .preview-btn {
+            background: linear-gradient(135deg, #6c757d 0%, #495057 100%);
+            color: white;
+        }
+        
+        .download-btn {
+            background: linear-gradient(135deg, #28a745 0%, #20c997 100%);
+            color: white;
+        }
+        
+        .action-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.15);
+        }
+        
+        /* TABELA - VAŽNO: scroll nije sakriven */
+        .table-container {
+            overflow-x: auto;
+            margin: 30px 0;
+            border-radius: 10px;
+            border: 1px solid var(--border);
+            background: white;
+            /* VAŽNO: Ostavljamo scroll vidljivim za korisnika */
+        }
+        
+        /* TABELA KOJA ĆE BITI SNIMANA - poseban stil */
+        #tableToCapture {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 0.95rem;
+            /* VAŽNO: nema min-width ovde, biće podešeno u JS */
+        }
+        
+        #tableToCapture thead {
+            background: linear-gradient(to right, var(--ps-blue), var(--ps-blue-light));
+        }
+        
+        #tableToCapture th {
+            padding: 18px 12px;
+            text-align: left;
+            color: white;
+            font-weight: 700;
+            font-size: 1rem;
+            border-right: 1px solid rgba(255,255,255,0.1);
+        }
+        
+        #tableToCapture tbody tr {
+            border-bottom: 1px solid var(--border);
+        }
+        
+        #tableToCapture tbody tr:nth-child(even) {
+            background-color: var(--gray-light);
+        }
+        
+        #tableToCapture td {
+            padding: 16px 12px;
+            color: #333;
+            vertical-align: top;
+            border-right: 1px solid #eee;
+        }
+        
+        /* PREVIEW AREA */
+        .preview-container {
+            margin: 30px 0;
+            padding: 25px;
+            background: #f8f9fa;
+            border-radius: 12px;
+            border: 2px dashed #adb5bd;
+            text-align: center;
+            min-height: 200px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+        
+        #previewText {
+            color: #666;
+            font-size: 1.1rem;
+            margin-bottom: 15px;
+        }
+        
+        #previewImage {
+            max-width: 100%;
+            max-height: 500px;
+            border-radius: 8px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            display: none;
+        }
+        
+        .loading {
+            display: none;
+            color: var(--ps-blue);
+            font-size: 1.1rem;
+            margin: 20px 0;
+            text-align: center;
+        }
+        
+        .quality-info {
+            color: #666;
+            font-size: 0.95rem;
+            margin-top: 15px;
+            text-align: center;
+            font-style: italic;
+        }
+        
+        /* HIDDEN CONTAINER FOR CAPTURING */
+        #hiddenTableContainer {
+            position: fixed;
+            top: -9999px;
+            left: -9999px;
+            background: white;
+            padding: 30px;
+            z-index: -1;
+            opacity: 0;
+        }
+        
+        /* TABLE CELL STYLES */
+        .year-cell {
+            font-weight: 700;
+            color: var(--ps-blue);
+            font-size: 1.1rem;
+        }
+        
+        .model-cell {
+            font-weight: 600;
+        }
+        
+        .chassis-code {
+            font-family: 'Consolas', monospace;
+            background: #f8f9fa;
+            padding: 5px 10px;
+            border-radius: 5px;
+            font-size: 0.9rem;
+            border: 1px solid #e9ecef;
+            color: #495057;
+        }
+        
+        .dualsense-v1 {
+            color: #6c757d;
+            font-weight: 600;
+        }
+        
+        .dualsense-v2 {
+            color: #28a745;
+            font-weight: 700;
+        }
+        
+        .footer {
+            text-align: center;
+            margin-top: 40px;
+            padding-top: 20px;
+            color: #666;
+            font-size: 0.9rem;
+            border-top: 1px solid var(--border);
+        }
+        
+        @media (max-width: 768px) {
+            .container {
+                padding: 20px;
+            }
+            
+            h1 {
+                font-size: 1.8rem;
+            }
+            
+            .button-group {
+                flex-direction: column;
+            }
+            
+            .action-btn {
+                width: 100%;
+                min-width: auto;
+            }
+        }
+    </style>
+    <script src="https://html2canvas.hertzen.com/dist/html2canvas.min.js"></script>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <div class="ps5-badge">PlayStation 5</div>
+            <h1>Revizije - Kompletna Tabela za Download</h1>
+            <div class="subtitle">Download-ujte CIJELU tabelu kao HD sliku</div>
+        </div>
+        
+        <div class="controls">
+            <div class="size-controls">
+                <div class="size-label">Rezolucija:</div>
+                <button class="size-btn active" data-scale="1">Standard (1200px)</button>
+                <button class="size-btn" data-scale="1.5">HD (1800px)</button>
+                <button class="size-btn" data-scale="2">Full HD (2400px)</button>
+            </div>
+            
+            <div class="button-group">
+                <button class="action-btn preview-btn" id="generateBtn">
+                    <span>🔄</span> Generiši Preview CIJELE tabele
+                </button>
+                <button class="action-btn download-btn" id="downloadBtn">
+                    <span>⬇️</span> Download CIJELU Tabelu
+                </button>
+            </div>
+        </div>
+        
+        <div class="quality-info">
+            Preporuka: Koristite "Full HD (2400px)" za najbolji kvalitet - cela tabela u jednoj slici!
+        </div>
+        
+        <div class="loading" id="loading">
+            ⏳ Generišem CIJELU tabelu... Sačekajte 5-10 sekundi...
+        </div>
+        
+        <div class="preview-container">
+            <div id="previewText">👇 Ovdje će se pojaviti PREVIEW CIJELE tabele:</div>
+            <img id="previewImage" src="" alt="Preview CIJELE tabele">
+        </div>
+        
+        <!-- TABELA KOJU KORISNIK VIDI (sa scroll) -->
+        <div class="table-container">
+            <table id="tableToCapture">
+                <thead>
+                    <tr>
+                        <th>Godina</th>
+                        <th>Model (SAD)</th>
+                        <th>Model (Evropa)</th>
+                        <th>Šasija</th>
+                        <th>Tip Revizije</th>
+                        <th>Datum</th>
+                        <th>Hlađenje</th>
+                        <th>DualSense</th>
+                        <th>Detalji</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <!-- 2020 -->
+                    <tr>
+                        <td class="year-cell">2020</td>
+                        <td class="model-cell">PS5 Disk</td>
+                        <td>PS5 Disk</td>
+                        <td><span class="chassis-code">CFI-1000A</span></td>
+                        <td><strong>Glavna</strong></td>
+                        <td>Nov 12, 2020</td>
+                        <td>350mm² heatsink<br>Liquid metal</td>
+                        <td class="dualsense-v1">V1 (CFI-ZCT1)</td>
+                        <td>Launch model • 4.5kg • 350W</td>
+                    </tr>
+                    
+                    <tr>
+                        <td class="year-cell">2020</td>
+                        <td class="model-cell">PS5 Digital</td>
+                        <td>PS5 Digital</td>
+                        <td><span class="chassis-code">CFI-1000B</span></td>
+                        <td><strong>Glavna</strong></td>
+                        <td>Nov 12, 2020</td>
+                        <td>Isto kao A</td>
+                        <td class="dualsense-v1">V1 (CFI-ZCT1)</td>
+                        <td>825GB SSD • 3.9kg</td>
+                    </tr>
+                    
+                    <!-- 2021 -->
+                    <tr>
+                        <td class="year-cell">2021</td>
+                        <td class="model-cell">PS5 Disk</td>
+                        <td>PS5 Disk</td>
+                        <td><span class="chassis-code">CFI-1100A</span></td>
+                        <td><strong>Manja</strong></td>
+                        <td>Avg 2021</td>
+                        <td>280mm² heatsink<br>17-blade fan</td>
+                        <td class="dualsense-v1">V1 (CFI-ZCT1)</td>
+                        <td>-300g • 340W</td>
+                    </tr>
+                    
+                    <tr>
+                        <td class="year-cell">2021</td>
+                        <td class="model-cell">PS5 Digital</td>
+                        <td>PS5 Digital</td>
+                        <td><span class="chassis-code">CFI-1100B</span></td>
+                        <td><strong>Manja</strong></td>
+                        <td>Avg 2021</td>
+                        <td>Isto kao A</td>
+                        <td class="dualsense-v1">V1 (CFI-ZCT1)</td>
+                        <td>3.6kg • Global</td>
+                    </tr>
+                    
+                    <!-- 2022 -->
+                    <tr>
+                        <td class="year-cell">2022</td>
+                        <td class="model-cell">PS5 Disk</td>
+                        <td>PS5 Disk</td>
+                        <td><span class="chassis-code">CFI-1200A</span></td>
+                        <td><strong>Glavna</strong></td>
+                        <td>Sep 2022</td>
+                        <td>250mm² heatsink<br>6nm APU</td>
+                        <td class="dualsense-v1">V1 (CFI-ZCT1)</td>
+                        <td>Oberon Plus • 330W</td>
+                    </tr>
+                    
+                    <tr>
+                        <td class="year-cell">2022</td>
+                        <td class="model-cell">PS5 Digital</td>
+                        <td>PS5 Digital</td>
+                        <td><span class="chassis-code">CFI-1200B</span></td>
+                        <td><strong>Glavna</strong></td>
+                        <td>Sep 2022</td>
+                        <td>Isto kao A</td>
+                        <td class="dualsense-v1">V1 (CFI-ZCT1)</td>
+                        <td>3.4kg • 6nm</td>
+                    </tr>
+                    
+                    <!-- 2023 -->
+                    <tr>
+                        <td class="year-cell">2023</td>
+                        <td class="model-cell">PS5 Slim Disk</td>
+                        <td>PS5 Slim Disk</td>
+                        <td><span class="chassis-code">CFI-2000A</span></td>
+                        <td><strong>Glavna</strong></td>
+                        <td>Nov 2023</td>
+                        <td>Kompakt heatsink</td>
+                        <td class="dualsense-v2">V2 (CFI-ZCT2)<br><small>Izbačen: Nov 2023</small></td>
+                        <td>30% manji • 1TB • 3.2kg • Detachable drive</td>
+                    </tr>
+                    
+                    <tr>
+                        <td class="year-cell">2023</td>
+                        <td class="model-cell">PS5 Slim Digital</td>
+                        <td>PS5 Slim Digital</td>
+                        <td><span class="chassis-code">CFI-2000B</span></td>
+                        <td><strong>Glavna</strong></td>
+                        <td>Nov 2023</td>
+                        <td>Isto kao A</td>
+                        <td class="dualsense-v2">V2 (CFI-ZCT2)<br><small>Izbačen: Nov 2023</small></td>
+                        <td>2.6kg • Add-on drive • 1TB</td>
+                    </tr>
+                    
+                    <!-- 2024 -->
+                    <tr>
+                        <td class="year-cell">2024</td>
+                        <td class="model-cell">PS5 Disk</td>
+                        <td>PS5 Disk</td>
+                        <td><span class="chassis-code">CFI-2200A</span></td>
+                        <td><strong>Manja</strong></td>
+                        <td>Jun 2024</td>
+                        <td>Optimizovano</td>
+                        <td class="dualsense-v2">V2 (CFI-ZCT2)</td>
+                        <td>Manja potrošnja • Poboljšana efikasnost</td>
+                    </tr>
+                    
+                    <tr>
+                        <td class="year-cell">2024</td>
+                        <td class="model-cell">PS5 Digital</td>
+                        <td>PS5 Digital</td>
+                        <td><span class="chassis-code">CFI-2200B</span></td>
+                        <td><strong>Manja</strong></td>
+                        <td>Jun 2024</td>
+                        <td>Isto kao A</td>
+                        <td class="dualsense-v2">V2 (CFI-ZCT2)</td>
+                        <td>2.5kg • 1TB SSD • Poslednja revizija</td>
+                    </tr>
+                    
+                    <tr>
+                        <td class="year-cell">2024</td>
+                        <td class="model-cell">PS5 Pro</td>
+                        <td>PS5 Pro</td>
+                        <td><span class="chassis-code">CFI-3000A</span><br><small>(Očekivano)</small></td>
+                        <td><strong>Glavna</strong></td>
+                        <td>Nov 2024<br><small>(Najavljeno)</small></td>
+                        <td>Veći heatsink<br>Napredni LM</td>
+                        <td class="dualsense-v2">V2 Pro<br><small>(Očekivano)</small></td>
+                        <td>2TB SSD • Ray Tracing • Premium model • Viši TDP</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        
+        <!-- SKRIVENI KONTEJNER ZA SNAMANJE -->
+        <div id="hiddenTableContainer"></div>
+        
+        <div class="footer">
+            <p>© 2024 PlayStation 5 Revizije Tabela • DualSense V2 izbačen: Novembar 2023</p>
+            <p style="font-size:0.85rem; margin-top:5px; color:#888;">Sada download-uje CIJELU tabelu, ne samo vidljivi deo!</p>
+        </div>
+    </div>
+
+    <script>
+        // VARIJABLE
+        let currentScale = 1;
+        let generatedImage = null;
+        
+        // INICIJALIZACIJA
+        document.addEventListener('DOMContentLoaded', function() {
+            // Size buttons
+            document.querySelectorAll('.size-btn').forEach(btn => {
+                btn.addEventListener('click', function() {
+                    document.querySelectorAll('.size-btn').forEach(b => b.classList.remove('active'));
+                    this.classList.add('active');
+                    currentScale = parseFloat(this.dataset.scale);
+                });
+            });
+            
+            // Generate preview button
+            document.getElementById('generateBtn').addEventListener('click', generateCompleteTableImage);
+            
+            // Download button
+            document.getElementById('downloadBtn').addEventListener('click', downloadCompleteTable);
+        });
+        
+        // FUNKCIJA KOJA SNIMA CIJELU TABELU
+        async function generateCompleteTableImage() {
+            const loading = document.getElementById('loading');
+            const previewText = document.getElementById('previewText');
+            const previewImage = document.getElementById('previewImage');
+            
+            loading.style.display = 'block';
+            previewText.innerHTML = '⏳ <strong>Generišem CIJELU tabelu...</strong><br>Ovo može potrajati 5-10 sekundi';
+            previewImage.style.display = 'none';
+            
+            try {
+                // 1. KOPIRAJ TABELU U HIDDEN CONTAINER
+                const originalTable = document.getElementById('tableToCapture');
+                const hiddenContainer = document.getElementById('hiddenTableContainer');
+                
+                // Očisti hidden container
+                hiddenContainer.innerHTML = '';
+                
+                // Napravi kopiju tabele za snimanje
+                const tableForCapture = originalTable.cloneNode(true);
+                
+                // 2. PRIKAŽI CIJELU TABELU BEZ SCROLL-A
+                // Ukloni sve stilove koji ograničavaju prikaz
+                tableForCapture.style.width = 'auto';
+                tableForCapture.style.display = 'table';
+                tableForCapture.style.overflow = 'visible';
+                tableForCaptu
+
+
