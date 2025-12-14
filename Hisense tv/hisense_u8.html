@@ -1,0 +1,514 @@
+<!DOCTYPE html>
+<html lang="sr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hisense U8 Tabela - Download HD Slika</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Arial', sans-serif;
+        }
+        
+        body {
+            background: linear-gradient(135deg, #1a237e 0%, #283593 100%);
+            color: white;
+            padding: 20px;
+            min-height: 100vh;
+        }
+        
+        .container {
+            max-width: 95%;
+            margin: 0 auto;
+            text-align: center;
+        }
+        
+        h1 {
+            color: #00e5ff;
+            margin-bottom: 20px;
+            text-shadow: 0 2px 5px rgba(0,0,0,0.5);
+            font-size: 2.5rem;
+        }
+        
+        .subtitle {
+            color: #b3e5fc;
+            margin-bottom: 30px;
+            font-size: 1.2rem;
+        }
+        
+        .controls {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 20px;
+            border-radius: 15px;
+            margin-bottom: 30px;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 15px;
+            align-items: center;
+        }
+        
+        .btn {
+            background: linear-gradient(45deg, #00e5ff, #2979ff);
+            color: white;
+            border: none;
+            padding: 12px 25px;
+            border-radius: 50px;
+            font-size: 1rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(0, 229, 255, 0.3);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 20px rgba(0, 229, 255, 0.5);
+        }
+        
+        .btn-download {
+            background: linear-gradient(45deg, #00c853, #64dd17);
+            box-shadow: 0 4px 15px rgba(0, 200, 83, 0.3);
+        }
+        
+        .btn-download:hover {
+            box-shadow: 0 6px 20px rgba(0, 200, 83, 0.5);
+        }
+        
+        .size-option {
+            background: rgba(255, 255, 255, 0.15);
+            padding: 8px 15px;
+            border-radius: 20px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .size-option:hover {
+            background: rgba(255, 255, 255, 0.25);
+        }
+        
+        .size-option.active {
+            background: #00e5ff;
+            color: #0d47a1;
+            font-weight: bold;
+        }
+        
+        .quality-info {
+            color: #b3e5fc;
+            font-size: 0.9rem;
+            margin-top: 10px;
+        }
+        
+        /* Tabela koja će biti konvertovana u sliku */
+        #tableToCapture {
+            background: white;
+            color: #333;
+            border-collapse: collapse;
+            margin: 0 auto;
+            font-size: 14px;
+            width: auto;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            border-radius: 10px;
+            overflow: hidden;
+        }
+        
+        #tableToCapture th {
+            background: linear-gradient(to right, #0d47a1, #1565c0);
+            color: white;
+            padding: 16px 12px;
+            text-align: center;
+            font-weight: bold;
+            border-right: 1px solid rgba(255, 255, 255, 0.2);
+        }
+        
+        #tableToCapture td {
+            padding: 14px 12px;
+            border-bottom: 1px solid #e0e0e0;
+            border-right: 1px solid #e0e0e0;
+            text-align: center;
+            vertical-align: middle;
+        }
+        
+        #tableToCapture tr:nth-child(even) {
+            background: #f8f9fa;
+        }
+        
+        #tableToCapture tr:hover {
+            background: #e3f2fd;
+        }
+        
+        .year-cell {
+            font-weight: bold;
+            color: #0d47a1;
+            font-size: 16px;
+        }
+        
+        .highlight {
+            background: #fff3e0;
+            color: #e65100;
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-weight: bold;
+        }
+        
+        .badge {
+            display: inline-block;
+            padding: 3px 8px;
+            border-radius: 10px;
+            font-size: 12px;
+            font-weight: bold;
+            margin: 2px;
+        }
+        
+        .badge-new {
+            background: linear-gradient(45deg, #ff4081, #f50057);
+            color: white;
+        }
+        
+        .badge-eu {
+            background: #00c853;
+            color: white;
+        }
+        
+        .badge-us {
+            background: #ff9100;
+            color: white;
+        }
+        
+        .table-container {
+            padding: 20px;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 15px;
+            margin-top: 20px;
+            overflow: auto;
+            max-width: 100%;
+        }
+        
+        .preview-container {
+            margin: 30px auto;
+            padding: 20px;
+            background: rgba(0, 0, 0, 0.3);
+            border-radius: 15px;
+            border: 2px dashed #00e5ff;
+            max-width: 95%;
+        }
+        
+        #previewText {
+            color: #b3e5fc;
+            margin-bottom: 15px;
+            font-size: 1.1rem;
+        }
+        
+        .loading {
+            display: none;
+            color: #00e5ff;
+            font-size: 1.2rem;
+            margin: 20px 0;
+        }
+        
+        .instructions {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 20px;
+            border-radius: 10px;
+            margin-top: 30px;
+            text-align: left;
+            max-width: 800px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        
+        .instructions h3 {
+            color: #00e5ff;
+            margin-bottom: 10px;
+        }
+        
+        .instructions ol {
+            margin-left: 20px;
+            margin-bottom: 15px;
+        }
+        
+        .instructions li {
+            margin-bottom: 8px;
+        }
+        
+        @media (max-width: 768px) {
+            .controls {
+                flex-direction: column;
+            }
+            
+            .btn {
+                width: 100%;
+                max-width: 300px;
+                justify-content: center;
+            }
+            
+            h1 {
+                font-size: 1.8rem;
+            }
+        }
+    </style>
+    <!-- Uključujemo html2canvas za generisanje slike -->
+    <script src="https://html2canvas.hertzen.com/dist/html2canvas.min.js"></script>
+</head>
+<body>
+    <div class="container">
+        <h1>📊 Hisense U8 Serija - HD Tabela za Download</h1>
+        <div class="subtitle">Generiši visoko-kvalitetnu sliku cele tabele za štampu ili deljenje</div>
+        
+        <div class="controls">
+            <div style="display: flex; gap: 10px; align-items: center;">
+                <span>Veličina:</span>
+                <div class="size-option active" data-size="1">Standard</div>
+                <div class="size-option" data-size="1.5">HD (1.5x)</div>
+                <div class="size-option" data-size="2">Full HD (2x)</div>
+            </div>
+            
+            <button class="btn" id="generateBtn">
+                <span>🔄</span> Generiši Preview
+            </button>
+            
+            <button class="btn btn-download" id="downloadBtn">
+                <span>⬇️</span> Download HD Sliku
+            </button>
+        </div>
+        
+        <div class="quality-info">
+            Preporuka: Koristite "Full HD (2x)" za najbolji kvalitet (∼4000×2000px)
+        </div>
+        
+        <div class="loading" id="loading">
+            ⏳ Generišem HD sliku... Može potrajati 10-15 sekundi...
+        </div>
+        
+        <div class="preview-container">
+            <div id="previewText">👇 Tabela će se pojaviti ovde nakon generisanja:</div>
+            <div id="previewArea"></div>
+        </div>
+        
+        <div class="table-container" id="tableContainer">
+            <table id="tableToCapture">
+                <thead>
+                    <tr>
+                        <th>Godina</th>
+                        <th>Model (SAD)</th>
+                        <th>Model (Evropa)</th>
+                        <th>Tehnologija</th>
+                        <th>Zone (65")</th>
+                        <th>Tip Panela (65")</th>
+                        <th>Osvežavanje</th>
+                        <th>Vrh. Svetlina</th>
+                        <th>Rtings Filmovi</th>
+                        <th>Rtings Gejming</th>
+                        <th>Gejming Degradacija</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td class="year-cell">2025</td>
+                        <td><strong>U8QG</strong> <span class="badge badge-new">NOVO</span></td>
+                        <td>U8QN / U8QG <span class="badge badge-eu">EU</span></td>
+                        <td>Mini-LED QLED</td>
+                        <td>~1500+</td>
+                        <td>VA / ADS Pro?</td>
+                        <td><span class="highlight">165Hz</span></td>
+                        <td><span class="highlight">~4000 nits</span></td>
+                        <td>9.0+ (očekivano)</td>
+                        <td>9.0+ (očekivano)</td>
+                        <td style="color:#00c853; font-weight:bold;">Bez degradacije</td>
+                    </tr>
+                    <tr>
+                        <td class="year-cell">2024</td>
+                        <td><strong>U8N</strong></td>
+                        <td>U8N / U8QN <span class="badge badge-eu">EU</span></td>
+                        <td>Mini-LED QLED</td>
+                        <td>~1500+</td>
+                        <td>VA / ADS Pro (55")</td>
+                        <td>144Hz</td>
+                        <td>~3000 nits</td>
+                        <td>9.1</td>
+                        <td>9.0</td>
+                        <td style="color:#00c853;">Bez značajne</td>
+                    </tr>
+                    <tr>
+                        <td class="year-cell">2023</td>
+                        <td><strong>U8K</strong></td>
+                        <td>U8K <span class="badge badge-eu">EU</span></td>
+                        <td>Mini-LED QLED</td>
+                        <td>~1000+</td>
+                        <td>VA (65"), ADS/IPS (55")</td>
+                        <td>144Hz</td>
+                        <td>~2500 nits</td>
+                        <td>8.9</td>
+                        <td>8.8</td>
+                        <td style="color:#8bc34a;">Minimalna</td>
+                    </tr>
+                    <tr>
+                        <td class="year-cell">2022</td>
+                        <td><strong>U8H</strong> <span class="badge badge-us">US</span></td>
+                        <td>U8H <span class="badge badge-eu">EU</span></td>
+                        <td>Mini-LED QLED</td>
+                        <td>~500</td>
+                        <td>VA</td>
+                        <td>120Hz</td>
+                        <td>~2000 nits</td>
+                        <td>8.8</td>
+                        <td>8.7</td>
+                        <td style="color:#ff9800;">Blaga</td>
+                    </tr>
+                    <tr>
+                        <td class="year-cell">2021</td>
+                        <td><strong>U8G</strong> <span class="badge badge-us">US</span></td>
+                        <td>U8QG <span class="badge badge-eu">EU</span></td>
+                        <td>Mini-LED QLED</td>
+                        <td>~360</td>
+                        <td>VA</td>
+                        <td>120Hz</td>
+                        <td>~1500 nits</td>
+                        <td>8.6</td>
+                        <td>8.5</td>
+                        <td style="color:#ff5722;">Značajna</td>
+                    </tr>
+                    <tr>
+                        <td class="year-cell">2020</td>
+                        <td><strong>H9G</strong> <span class="badge badge-us">US</span></td>
+                        <td>U8Q / U8QF <span class="badge badge-eu">EU</span></td>
+                        <td>Quantum Dot LED</td>
+                        <td>~120</td>
+                        <td>VA</td>
+                        <td>120Hz</td>
+                        <td>~1400 nits</td>
+                        <td>8.2</td>
+                        <td>8.0</td>
+                        <td style="color:#f44336;">Značajna</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        
+        <div class="instructions">
+            <h3>📋 Kako koristiti:</h3>
+            <ol>
+                <li><strong>Izaberite željenu veličinu</strong> (Standard, HD ili Full HD)</li>
+                <li><strong>Kliknite "Generiši Preview"</strong> da vidite kako će slika izgledati</li>
+                <li><strong>Kliknite "Download HD Sliku"</strong> da preuzmete PNG fajl</li>
+                <li><strong>Za najbolji kvalitet</strong> koristite "Full HD (2x)" opciju</li>
+            </ol>
+            <p><strong>Napomena:</strong> Generisanje Full HD slike može potrajati 10-15 sekundi na slabijim uređajima.</p>
+        </div>
+    </div>
+
+    <script>
+        // Varijable
+        let currentScale = 1;
+        let generatedImage = null;
+        
+        // Inicijalizacija
+        document.addEventListener('DOMContentLoaded', function() {
+            // Postavi event listenere za veličine
+            document.querySelectorAll('.size-option').forEach(option => {
+                option.addEventListener('click', function() {
+                    document.querySelectorAll('.size-option').forEach(opt => opt.classList.remove('active'));
+                    this.classList.add('active');
+                    currentScale = parseFloat(this.dataset.size);
+                });
+            });
+            
+            // Generiši preview
+            document.getElementById('generateBtn').addEventListener('click', generatePreview);
+            
+            // Download dugme
+            document.getElementById('downloadBtn').addEventListener('click', downloadImage);
+        });
+        
+        // Funkcija za generisanje preview-a
+        async function generatePreview() {
+            const loading = document.getElementById('loading');
+            const previewArea = document.getElementById('previewArea');
+            const previewText = document.getElementById('previewText');
+            
+            loading.style.display = 'block';
+            previewText.textContent = '⏳ Generišem sliku...';
+            
+            try {
+                // Koristimo html2canvas da napravimo sliku od tabele
+                const canvas = await html2canvas(document.getElementById('tableToCapture'), {
+                    scale: currentScale,
+                    backgroundColor: '#ffffff',
+                    useCORS: true,
+                    allowTaint: true,
+                    logging: false,
+                    onclone: function(clonedDoc) {
+                        // Povećavamo font za bolju čitljivost
+                        const table = clonedDoc.getElementById('tableToCapture');
+                        table.style.fontSize = (14 * currentScale) + 'px';
+                        table.style.padding = (20 * currentScale) + 'px';
+                        
+                        // Povećavamo ćelije
+                        const cells = table.querySelectorAll('th, td');
+                        cells.forEach(cell => {
+                            cell.style.padding = (14 * currentScale) + 'px ' + (12 * currentScale) + 'px';
+                        });
+                    }
+                });
+                
+                // Konvertujemo canvas u sliku
+                const imgUrl = canvas.toDataURL('image/png');
+                generatedImage = imgUrl;
+                
+                // Prikažemo preview
+                previewArea.innerHTML = `<img src="${imgUrl}" style="max-width:100%; border-radius:10px; box-shadow:0 5px 20px rgba(0,0,0,0.5);" alt="Hisense U8 Tabela">`;
+                previewText.innerHTML = `✅ Preview generisan! <span style="color:#00e5ff;">Veličina: ${Math.round(canvas.width)}×${Math.round(canvas.height)}px</span>`;
+                
+                // Scroll do preview-a
+                previewArea.scrollIntoView({ behavior: 'smooth' });
+                
+            } catch (error) {
+                console.error('Greška pri generisanju:', error);
+                previewText.innerHTML = '❌ Greška pri generisanju slike. Pokušajte ponovo.';
+            } finally {
+                loading.style.display = 'none';
+            }
+        }
+        
+        // Funkcija za download slike
+        function downloadImage() {
+            if (!generatedImage) {
+                alert('Prvo generišite preview klikom na "Generiši Preview"!');
+                return;
+            }
+            
+            // Kreiraj link za download
+            const link = document.createElement('a');
+            link.href = generatedImage;
+            
+            // Generiši ime fajla sa rezolucijom
+            const date = new Date();
+            const timestamp = date.toISOString().slice(0,10).replace(/-/g, '');
+            const scaleName = currentScale === 1 ? 'standard' : 
+                             currentScale === 1.5 ? 'hd' : 'fullhd';
+            
+            link.download = `hisense_u8_tabela_${scaleName}_${timestamp}.png`;
+            
+            // Simuliraj klik za download
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+            
+            // Obavesti korisnika
+            alert(`✅ Slika preuzeta kao: ${link.download}\n\nVeličina: ${currentScale}x\nFormat: PNG (HD)`);
+        }
+        
+        // Automatski generiši preview na učitavanju stranice
+        window.addEventListener('load', function() {
+            setTimeout(() => {
+                generatePreview();
+            }, 1000);
+        });
+    </script>
+</body>
+</html>
