@@ -1,1 +1,404 @@
-
+<!DOCTYPE html>
+<html lang="sr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PS5 Revizije - Kompletna Tabela</title>
+    <style>
+        :root {
+            --ps-blue: #0066cc;
+            --ps-blue-light: #0070e0;
+            --gray-light: #f5f5f5;
+            --gray-dark: #333333;
+            --border: #ddd;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', system-ui, sans-serif;
+        }
+        
+        body {
+            background: #f8f9fa;
+            color: var(--gray-dark);
+            padding: 20px;
+            min-height: 100vh;
+        }
+        
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 15px;
+            padding: 30px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+        }
+        
+        .header {
+            text-align: center;
+            margin-bottom: 30px;
+            padding-bottom: 20px;
+            border-bottom: 2px solid var(--border);
+        }
+        
+        h1 {
+            color: var(--ps-blue);
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+            font-weight: 700;
+        }
+        
+        .ps5-badge {
+            display: inline-block;
+            background: linear-gradient(135deg, var(--ps-blue) 0%, var(--ps-blue-light) 100%);
+            color: white;
+            padding: 8px 20px;
+            border-radius: 20px;
+            font-weight: 600;
+            margin-bottom: 15px;
+            box-shadow: 0 4px 12px rgba(0, 102, 204, 0.2);
+        }
+        
+        .subtitle {
+            color: #666;
+            font-size: 1.2rem;
+            margin-top: 10px;
+        }
+        
+        /* TABELA - puna širina, visoka razlučivost */
+        .table-container {
+            margin: 30px 0;
+            border-radius: 10px;
+            border: 1px solid var(--border);
+            background: white;
+            overflow: visible;
+            width: 100%;
+        }
+        
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 1rem;
+            table-layout: fixed;
+        }
+        
+        thead {
+            background: linear-gradient(to right, var(--ps-blue), var(--ps-blue-light));
+        }
+        
+        th {
+            padding: 20px 15px;
+            text-align: left;
+            color: white;
+            font-weight: 700;
+            font-size: 1.1rem;
+            border-right: 1px solid rgba(255,255,255,0.1);
+        }
+        
+        th:last-child {
+            border-right: none;
+        }
+        
+        tbody tr {
+            border-bottom: 1px solid var(--border);
+        }
+        
+        tbody tr:nth-child(even) {
+            background-color: var(--gray-light);
+        }
+        
+        td {
+            padding: 18px 15px;
+            color: #333;
+            vertical-align: top;
+            border-right: 1px solid #eee;
+        }
+        
+        td:last-child {
+            border-right: none;
+        }
+        
+        /* TABLE CELL STYLES */
+        .year-cell {
+            font-weight: 700;
+            color: var(--ps-blue);
+            font-size: 1.2rem;
+        }
+        
+        .model-cell {
+            font-weight: 600;
+        }
+        
+        .chassis-code {
+            font-family: 'Consolas', monospace;
+            background: #f8f9fa;
+            padding: 8px 12px;
+            border-radius: 6px;
+            font-size: 1rem;
+            border: 1px solid #e9ecef;
+            color: #495057;
+            display: inline-block;
+        }
+        
+        .dualsense-v1 {
+            color: #6c757d;
+            font-weight: 600;
+        }
+        
+        .dualsense-v2 {
+            color: #28a745;
+            font-weight: 700;
+        }
+        
+        /* COLUMN WIDTHS */
+        th:nth-child(1), td:nth-child(1) { width: 8%; }  /* Godina */
+        th:nth-child(2), td:nth-child(2) { width: 10%; } /* Model (SAD) */
+        th:nth-child(3), td:nth-child(3) { width: 10%; } /* Model (Evropa) */
+        th:nth-child(4), td:nth-child(4) { width: 10%; } /* Šasija */
+        th:nth-child(5), td:nth-child(5) { width: 10%; } /* Tip Revizije */
+        th:nth-child(6), td:nth-child(6) { width: 10%; } /* Datum */
+        th:nth-child(7), td:nth-child(7) { width: 15%; } /* Hlađenje */
+        th:nth-child(8), td:nth-child(8) { width: 12%; } /* DualSense */
+        th:nth-child(9), td:nth-child(9) { width: 15%; } /* Detalji */
+        
+        .footer {
+            text-align: center;
+            margin-top: 40px;
+            padding-top: 20px;
+            color: #666;
+            font-size: 0.9rem;
+            border-top: 1px solid var(--border);
+        }
+        
+        /* PRINT STYLES */
+        @media print {
+            body {
+                background: white;
+                padding: 0;
+            }
+            
+            .container {
+                box-shadow: none;
+                padding: 10px;
+            }
+            
+            .header {
+                margin-bottom: 20px;
+            }
+            
+            table {
+                font-size: 12pt;
+            }
+            
+            th, td {
+                padding: 12px 8px;
+            }
+        }
+        
+        /* RESPONSIVE */
+        @media (max-width: 1200px) {
+            .container {
+                padding: 20px;
+            }
+            
+            table {
+                font-size: 0.95rem;
+            }
+            
+            th, td {
+                padding: 15px 10px;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 1.8rem;
+            }
+            
+            .table-container {
+                overflow-x: auto;
+            }
+            
+            table {
+                min-width: 900px; /* Minimum width for mobile scrolling */
+            }
+            
+            th:nth-child(n), td:nth-child(n) {
+                width: auto;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <div class="ps5-badge">PlayStation 5</div>
+            <h1>Revizije - Kompletna Tabela</h1>
+            <div class="subtitle">Pregled svih PS5 modela od lansiranja do danas</div>
+        </div>
+        
+        <div class="table-container">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Godina</th>
+                        <th>Model (SAD)</th>
+                        <th>Model (Evropa)</th>
+                        <th>Šasija</th>
+                        <th>Tip Revizije</th>
+                        <th>Datum</th>
+                        <th>Hlađenje</th>
+                        <th>DualSense</th>
+                        <th>Detalji</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <!-- 2020 -->
+                    <tr>
+                        <td class="year-cell">2020</td>
+                        <td class="model-cell">PS5 Disk</td>
+                        <td>PS5 Disk</td>
+                        <td><span class="chassis-code">CFI-1000A</span></td>
+                        <td><strong>Glavna</strong></td>
+                        <td>Nov 12, 2020</td>
+                        <td>350mm² heatsink<br>Liquid metal</td>
+                        <td class="dualsense-v1">V1 (CFI-ZCT1)</td>
+                        <td>Launch model • 4.5kg • 350W</td>
+                    </tr>
+                    
+                    <tr>
+                        <td class="year-cell">2020</td>
+                        <td class="model-cell">PS5 Digital</td>
+                        <td>PS5 Digital</td>
+                        <td><span class="chassis-code">CFI-1000B</span></td>
+                        <td><strong>Glavna</strong></td>
+                        <td>Nov 12, 2020</td>
+                        <td>Isto kao A</td>
+                        <td class="dualsense-v1">V1 (CFI-ZCT1)</td>
+                        <td>825GB SSD • 3.9kg</td>
+                    </tr>
+                    
+                    <!-- 2021 -->
+                    <tr>
+                        <td class="year-cell">2021</td>
+                        <td class="model-cell">PS5 Disk</td>
+                        <td>PS5 Disk</td>
+                        <td><span class="chassis-code">CFI-1100A</span></td>
+                        <td><strong>Manja</strong></td>
+                        <td>Avg 2021</td>
+                        <td>280mm² heatsink<br>17-blade fan</td>
+                        <td class="dualsense-v1">V1 (CFI-ZCT1)</td>
+                        <td>-300g • 340W</td>
+                    </tr>
+                    
+                    <tr>
+                        <td class="year-cell">2021</td>
+                        <td class="model-cell">PS5 Digital</td>
+                        <td>PS5 Digital</td>
+                        <td><span class="chassis-code">CFI-1100B</span></td>
+                        <td><strong>Manja</strong></td>
+                        <td>Avg 2021</td>
+                        <td>Isto kao A</td>
+                        <td class="dualsense-v1">V1 (CFI-ZCT1)</td>
+                        <td>3.6kg • Global</td>
+                    </tr>
+                    
+                    <!-- 2022 -->
+                    <tr>
+                        <td class="year-cell">2022</td>
+                        <td class="model-cell">PS5 Disk</td>
+                        <td>PS5 Disk</td>
+                        <td><span class="chassis-code">CFI-1200A</span></td>
+                        <td><strong>Glavna</strong></td>
+                        <td>Sep 2022</td>
+                        <td>250mm² heatsink<br>6nm APU</td>
+                        <td class="dualsense-v1">V1 (CFI-ZCT1)</td>
+                        <td>Oberon Plus • 330W</td>
+                    </tr>
+                    
+                    <tr>
+                        <td class="year-cell">2022</td>
+                        <td class="model-cell">PS5 Digital</td>
+                        <td>PS5 Digital</td>
+                        <td><span class="chassis-code">CFI-1200B</span></td>
+                        <td><strong>Glavna</strong></td>
+                        <td>Sep 2022</td>
+                        <td>Isto kao A</td>
+                        <td class="dualsense-v1">V1 (CFI-ZCT1)</td>
+                        <td>3.4kg • 6nm</td>
+                    </tr>
+                    
+                    <!-- 2023 -->
+                    <tr>
+                        <td class="year-cell">2023</td>
+                        <td class="model-cell">PS5 Slim Disk</td>
+                        <td>PS5 Slim Disk</td>
+                        <td><span class="chassis-code">CFI-2000A</span></td>
+                        <td><strong>Glavna</strong></td>
+                        <td>Nov 2023</td>
+                        <td>Kompakt heatsink</td>
+                        <td class="dualsense-v2">V2 (CFI-ZCT2)<br><small>Izbačen: Nov 2023</small></td>
+                        <td>30% manji • 1TB • 3.2kg • Detachable drive</td>
+                    </tr>
+                    
+                    <tr>
+                        <td class="year-cell">2023</td>
+                        <td class="model-cell">PS5 Slim Digital</td>
+                        <td>PS5 Slim Digital</td>
+                        <td><span class="chassis-code">CFI-2000B</span></td>
+                        <td><strong>Glavna</strong></td>
+                        <td>Nov 2023</td>
+                        <td>Isto kao A</td>
+                        <td class="dualsense-v2">V2 (CFI-ZCT2)<br><small>Izbačen: Nov 2023</small></td>
+                        <td>2.6kg • Add-on drive • 1TB</td>
+                    </tr>
+                    
+                    <!-- 2024 -->
+                    <tr>
+                        <td class="year-cell">2024</td>
+                        <td class="model-cell">PS5 Disk</td>
+                        <td>PS5 Disk</td>
+                        <td><span class="chassis-code">CFI-2200A</span></td>
+                        <td><strong>Manja</strong></td>
+                        <td>Jun 2024</td>
+                        <td>Optimizovano</td>
+                        <td class="dualsense-v2">V2 (CFI-ZCT2)</td>
+                        <td>Manja potrošnja • Poboljšana efikasnost</td>
+                    </tr>
+                    
+                    <tr>
+                        <td class="year-cell">2024</td>
+                        <td class="model-cell">PS5 Digital</td>
+                        <td>PS5 Digital</td>
+                        <td><span class="chassis-code">CFI-2200B</span></td>
+                        <td><strong>Manja</strong></td>
+                        <td>Jun 2024</td>
+                        <td>Isto kao A</td>
+                        <td class="dualsense-v2">V2 (CFI-ZCT2)</td>
+                        <td>2.5kg • 1TB SSD • Poslednja revizija</td>
+                    </tr>
+                    
+                    <tr>
+                        <td class="year-cell">2024</td>
+                        <td class="model-cell">PS5 Pro</td>
+                        <td>PS5 Pro</td>
+                        <td><span class="chassis-code">CFI-3000A</span><br><small>(Očekivano)</small></td>
+                        <td><strong>Glavna</strong></td>
+                        <td>Nov 2024<br><small>(Najavljeno)</small></td>
+                        <td>Veći heatsink<br>Napredni LM</td>
+                        <td class="dualsense-v2">V2 Pro<br><small>(Očekivano)</small></td>
+                        <td>2TB SSD • Ray Tracing • Premium model • Viši TDP</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        
+        <div class="footer">
+            <p>© 2024 PlayStation 5 Revizije Tabela • DualSense V2 izbačen: Novembar 2023</p>
+            <p style="font-size:0.85rem; margin-top:5px; color:#888;">Kompletna tabela svih PS5 revizija od 2020. do 2024. godine</p>
+        </div>
+    </div>
+</body>
+</html>
