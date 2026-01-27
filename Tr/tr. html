@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Troškovi</title>
+    <style>
+        table {
+            border-collapse: collapse;
+            width: 60%;
+            margin: 20px auto;
+        }
+        th, td {
+            border: 1px solid #444;
+            padding: 8px 12px;
+            text-align: left;
+        }
+        th {
+            background-color: #ddd;
+        }
+        tfoot td {
+            font-weight: bold;
+            background-color: #f0f0f0;
+        }
+    </style>
+</head>
+<body>
+    <h2 style="text-align:center;">Lista troškova</h2>
+    <table>
+        <thead>
+            <tr>
+                <th>Stavka</th>
+                <th>Iznos (KM)</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr><td>Start11</td><td>35</td></tr>
+            <tr><td>Zara košulje (jaro i ja)</td><td>51</td></tr>
+            <tr><td>PS5 + ventilator</td><td>866</td></tr>
+            <tr><td>Jysk regal + police</td><td>690</td></tr>
+            <tr><td>Sunday košulje</td><td>40</td></tr>
+            <tr><td>Elite Nutrition</td><td>90</td></tr>
+            <tr><td>SSD</td><td>150</td></tr>
+            <tr><td>Grafička RTX 4060 Ti</td><td>600</td></tr>
+            <tr><td>Napojna Focus GX850W</td><td>280</td></tr>
+            <tr><td>DualSense 4</td><td>150</td></tr>
+            <tr><td>Temu</td><td>179</td></tr>
+            <tr><td>Torba Aku Bosch</td><td>50</td></tr>
+            <tr><td>Sunce danu (povrat)</td><td>450</td></tr>
+        </tbody>
+        <tfoot>
+            <tr>
+                <td>Ukupno</td>
+                <td>3941 KM</td>
+            </tr>
+        </tfoot>
+    </table>
+</body>
+</html>
