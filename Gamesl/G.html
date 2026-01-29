@@ -1,1 +1,364 @@
-
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Game Reviews Table</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            background-color: #f5f5f5;
+        }
+        h1 {
+            text-align: center;
+            color: #333;
+            margin-bottom: 30px;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            background-color: white;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        th {
+            background-color: #4CAF50;
+            color: white;
+            padding: 12px;
+            text-align: left;
+            font-size: 16px;
+        }
+        td {
+            padding: 10px;
+            border-bottom: 1px solid #ddd;
+        }
+        tr:hover {
+            background-color: #f1f1f1;
+        }
+        a {
+            color: #0066cc;
+            text-decoration: none;
+        }
+        a:hover {
+            text-decoration: underline;
+        }
+        .rating-high {
+            color: #2ecc71;
+            font-weight: bold;
+        }
+        .rating-medium {
+            color: #f39c12;
+        }
+        .rating-low {
+            color: #e74c3c;
+        }
+        .rating-na {
+            color: #95a5a6;
+            font-style: italic;
+        }
+    </style>
+</head>
+<body>
+    <h1>Game Reviews and Ratings</h1>
+    <table>
+        <thead>
+            <tr>
+                <th>#</th>
+                <th>Game Name</th>
+                <th>Rating</th>
+                <th>Review Link</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>1</td>
+                <td>Ori and the Will of the Wisps</td>
+                <td class="rating-high">9.3</td>
+                <td><a href="https://www.metacritic.com/game/ori-and-the-will-of-the-wisps/" target="_blank">Metacritic Review</a></td>
+            </tr>
+            <tr>
+                <td>2</td>
+                <td>Project Zomboid</td>
+                <td class="rating-high">9.0 (Steam)</td>
+                <td><a href="https://store.steampowered.com/app/108600/Project_Zomboid/" target="_blank">Steam Page</a></td>
+            </tr>
+            <tr>
+                <td>3</td>
+                <td>Yet Another Zombie Survivors</td>
+                <td class="rating-high">9.2 (Steam)</td>
+                <td><a href="https://store.steampowered.com/app/2394010/Yet_Another_Zombie_Survivors/" target="_blank">Steam Page</a></td>
+            </tr>
+            <tr>
+                <td>4</td>
+                <td>Cuphead</td>
+                <td class="rating-high">8.8</td>
+                <td><a href="https://www.metacritic.com/game/cuphead/" target="_blank">Metacritic Review</a></td>
+            </tr>
+            <tr>
+                <td>5</td>
+                <td>Mark of the Ninja</td>
+                <td class="rating-high">8.9</td>
+                <td><a href="https://www.metacritic.com/game/mark-of-the-ninja-remastered/" target="_blank">Metacritic Review</a></td>
+            </tr>
+            <tr>
+                <td>6</td>
+                <td>Huntdown</td>
+                <td class="rating-high">8.5</td>
+                <td><a href="https://www.metacritic.com/game/huntdown/" target="_blank">Metacritic Review</a></td>
+            </tr>
+            <tr>
+                <td>7</td>
+                <td>Little Nightmares 2</td>
+                <td class="rating-high">8.5</td>
+                <td><a href="https://www.metacritic.com/game/little-nightmares-2/" target="_blank">Metacritic Review</a></td>
+            </tr>
+            <tr>
+                <td>8</td>
+                <td>Prince of Persia: The Lost Crown</td>
+                <td class="rating-high">8.6</td>
+                <td><a href="https://www.metacritic.com/game/prince-of-persia-the-lost-crown/" target="_blank">Metacritic Review</a></td>
+            </tr>
+            <tr>
+                <td>9</td>
+                <td>The Swapper</td>
+                <td class="rating-high">8.4</td>
+                <td><a href="https://www.metacritic.com/game/the-swapper/" target="_blank">Metacritic Review</a></td>
+            </tr>
+            <tr>
+                <td>10</td>
+                <td>This War of Mine</td>
+                <td class="rating-high">8.4</td>
+                <td><a href="https://www.metacritic.com/game/this-war-of-mine/" target="_blank">Metacritic Review</a></td>
+            </tr>
+            <tr>
+                <td>11</td>
+                <td>Gunpoint</td>
+                <td class="rating-high">8.3</td>
+                <td><a href="https://www.metacritic.com/game/gunpoint/" target="_blank">Metacritic Review</a></td>
+            </tr>
+            <tr>
+                <td>12</td>
+                <td>Yoku's Island Express</td>
+                <td class="rating-high">8.3</td>
+                <td><a href="https://www.metacritic.com/game/yokus-island-express/" target="_blank">Metacritic Review</a></td>
+            </tr>
+            <tr>
+                <td>13</td>
+                <td>Creaks</td>
+                <td class="rating-medium">7.8</td>
+                <td><a href="https://www.metacritic.com/game/creaks/" target="_blank">Metacritic Review</a></td>
+            </tr>
+            <tr>
+                <td>14</td>
+                <td>Trinity Fusion</td>
+                <td class="rating-medium">7.8 (Steam)</td>
+                <td><a href="https://store.steampowered.com/app/1509270/Trinity_Fusion/" target="_blank">Steam Page</a></td>
+            </tr>
+            <tr>
+                <td>15</td>
+                <td>HOA</td>
+                <td class="rating-medium">7.7</td>
+                <td><a href="https://www.metacritic.com/game/hoa/" target="_blank">Metacritic Review</a></td>
+            </tr>
+            <tr>
+                <td>16</td>
+                <td>Into the Dead: Our Darkest Days</td>
+                <td class="rating-medium">7.7 (Steam)</td>
+                <td><a href="https://store.steampowered.com/app/1669650/Into_the_Dead_Our_Darkest_Days/" target="_blank">Steam Page</a></td>
+            </tr>
+            <tr>
+                <td>17</td>
+                <td>Zombotron</td>
+                <td class="rating-medium">7.6 (Steam)</td>
+                <td><a href="https://store.steampowered.com/app/816270/Zombotron/" target="_blank">Steam Page</a></td>
+            </tr>
+            <tr>
+                <td>18</td>
+                <td>Shady Part of Me</td>
+                <td class="rating-medium">7.6</td>
+                <td><a href="https://www.metacritic.com/game/shady-part-of-me/" target="_blank">Metacritic Review</a></td>
+            </tr>
+            <tr>
+                <td>19</td>
+                <td>They Are Billions</td>
+                <td class="rating-medium">7.5</td>
+                <td><a href="https://www.metacritic.com/game/they-are-billions/" target="_blank">Metacritic Review</a></td>
+            </tr>
+            <tr>
+                <td>20</td>
+                <td>My Brother Rabbit</td>
+                <td class="rating-medium">7.4</td>
+                <td><a href="https://www.metacritic.com/game/my-brother-rabbit/" target="_blank">Metacritic Review</a></td>
+            </tr>
+            <tr>
+                <td>21</td>
+                <td>The Cub</td>
+                <td class="rating-medium">7.4</td>
+                <td><a href="https://www.metacritic.com/game/the-cub/" target="_blank">Metacritic Review</a></td>
+            </tr>
+            <tr>
+                <td>22</td>
+                <td>Anno: Mutationem</td>
+                <td class="rating-medium">7.4</td>
+                <td><a href="https://www.metacritic.com/game/anno-mutationem/" target="_blank">Metacritic Review</a></td>
+            </tr>
+            <tr>
+                <td>23</td>
+                <td>One Last Breath</td>
+                <td class="rating-medium">7.4 (Steam)</td>
+                <td><a href="https://store.steampowered.com/app/1267910/One_Last_Breath/" target="_blank">Steam Page</a></td>
+            </tr>
+            <tr>
+                <td>24</td>
+                <td>Torn Away</td>
+                <td class="rating-medium">7.3 (Steam)</td>
+                <td><a href="https://store.steampowered.com/app/1843090/Torn_Away/" target="_blank">Steam Page</a></td>
+            </tr>
+            <tr>
+                <td>25</td>
+                <td>Heaven Dust 2</td>
+                <td class="rating-high">8.2 (Steam)</td>
+                <td><a href="https://store.steampowered.com/app/1538570/Heaven_Dust_2/" target="_blank">Steam Page</a></td>
+            </tr>
+            <tr>
+                <td>26</td>
+                <td>Trine 4: The Nightmare Prince</td>
+                <td class="rating-high">8.2</td>
+                <td><a href="https://www.metacritic.com/game/trine-4-the-nightmare-prince/" target="_blank">Metacritic Review</a></td>
+            </tr>
+            <tr>
+                <td>27</td>
+                <td>The Last Stand: Aftermath</td>
+                <td class="rating-medium">7.2 (Steam)</td>
+                <td><a href="https://store.steampowered.com/app/1339640/The_Last_Stand_Aftermath/" target="_blank">Steam Page</a></td>
+            </tr>
+            <tr>
+                <td>28</td>
+                <td>Eastern Exorcist</td>
+                <td class="rating-medium">7.2 (Steam)</td>
+                <td><a href="https://store.steampowered.com/app/1120940/Eastern_Exorcist/" target="_blank">Steam Page</a></td>
+            </tr>
+            <tr>
+                <td>29</td>
+                <td>Edge of Sanity</td>
+                <td class="rating-medium">7.0 (Steam)</td>
+                <td><a href="https://store.steampowered.com/app/1572600/Edge_of_Sanity/" target="_blank">Steam Page</a></td>
+            </tr>
+            <tr>
+                <td>30</td>
+                <td>Oddworld: Soulstorm</td>
+                <td class="rating-medium">6.9</td>
+                <td><a href="https://www.metacritic.com/game/oddworld-soulstorm/" target="_blank">Metacritic Review</a></td>
+            </tr>
+            <tr>
+                <td>31</td>
+                <td>Deadlight</td>
+                <td class="rating-medium">6.9</td>
+                <td><a href="https://www.metacritic.com/game/deadlight/" target="_blank">Metacritic Review</a></td>
+            </tr>
+            <tr>
+                <td>32</td>
+                <td>They Always Run</td>
+                <td class="rating-medium">6.9 (Steam)</td>
+                <td><a href="https://store.steampowered.com/app/1577930/They_Always_Run/" target="_blank">Steam Page</a></td>
+            </tr>
+            <tr>
+                <td>33</td>
+                <td>Crude</td>
+                <td class="rating-medium">6.8 (Steam)</td>
+                <td><a href="https://store.steampowered.com/app/1285680/Crude/" target="_blank">Steam Page</a></td>
+            </tr>
+            <tr>
+                <td>34</td>
+                <td>Song of Iron</td>
+                <td class="rating-medium">6.8</td>
+                <td><a href="https://www.metacritic.com/game/song-of-iron/" target="_blank">Metacritic Review</a></td>
+            </tr>
+            <tr>
+                <td>35</td>
+                <td>Black the Fall</td>
+                <td class="rating-medium">6.6</td>
+                <td><a href="https://www.metacritic.com/game/black-the-fall/" target="_blank">Metacritic Review</a></td>
+            </tr>
+            <tr>
+                <td>36</td>
+                <td>Dark Light</td>
+                <td class="rating-medium">6.5 (Steam)</td>
+                <td><a href="https://store.steampowered.com/app/952170/Dark_Light/" target="_blank">Steam Page</a></td>
+            </tr>
+            <tr>
+                <td>37</td>
+                <td>Planet of Lana</td>
+                <td class="rating-high">8.0</td>
+                <td><a href="https://www.metacritic.com/game/planet-of-lana/" target="_blank">Metacritic Review</a></td>
+            </tr>
+            <tr>
+                <td>38</td>
+                <td>Albert and Otto</td>
+                <td class="rating-low">5.5 (Steam)</td>
+                <td><a href="https://store.steampowered.com/app/348460/Albert_and_Otto/" target="_blank">Steam Page</a></td>
+            </tr>
+            <tr>
+                <td>39</td>
+                <td>ARCTIC AWAKENING</td>
+                <td class="rating-na">N/A (Coming Soon)</td>
+                <td><a href="https://store.steampowered.com/app/1901210/Arctic_Awakening/" target="_blank">Steam Page</a></td>
+            </tr>
+            <tr>
+                <td>40</td>
+                <td>Sara</td>
+                <td class="rating-na">N/A</td>
+                <td><a href="https://store.steampowered.com/app/2101330/Sara/" target="_blank">Steam Page</a></td>
+            </tr>
+        </tbody>
+    </table>
+    
+    <script>
+        // Dodajemo mogućnost sortiranja po kolonama
+        document.addEventListener('DOMContentLoaded', function() {
+            const table = document.querySelector('table');
+            const headers = table.querySelectorAll('th');
+            const tableBody = table.querySelector('tbody');
+            const rows = tableBody.querySelectorAll('tr');
+            
+            headers.forEach(function(header, index) {
+                if (index > 0) { // Ne sortiramo kolonu sa rednim brojevima
+                    header.style.cursor = 'pointer';
+                    header.addEventListener('click', function() {
+                        sortTable(index);
+                    });
+                }
+            });
+            
+            function sortTable(column) {
+                const rowsArray = Array.from(rows);
+                const isNumeric = column === 2; // Ocena je numerička
+                
+                rowsArray.sort(function(rowA, rowB) {
+                    const cellA = rowA.querySelectorAll('td')[column].textContent;
+                    const cellB = rowB.querySelectorAll('td')[column].textContent;
+                    
+                    if (isNumeric) {
+                        // Ekstraktujemo broj iz ocene
+                        const numA = parseFloat(cellA) || (cellA.includes('N/A') ? -1 : 0);
+                        const numB = parseFloat(cellB) || (cellB.includes('N/A') ? -1 : 0);
+                        return numB - numA; // Opadajući redosled
+                    } else {
+                        return cellA.localeCompare(cellB);
+                    }
+                });
+                
+                // Uklanjamo postojeće redove
+                rows.forEach(function(row) {
+                    tableBody.removeChild(row);
+                });
+                
+                // Dodajemo sortirane redove
+                rowsArray.forEach(function(row) {
+                    tableBody.appendChild(row);
+                });
+            }
+        });
+    </script>
+</body>
+</html>
